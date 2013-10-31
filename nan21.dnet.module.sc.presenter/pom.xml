@@ -1,0 +1,143 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>net.nan21.dnet</groupId>
+		<artifactId>nan21.dnet.module.sc</artifactId>
+		<version>2.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>nan21.dnet.module.sc.presenter</artifactId>
+	<name>DNet SC - Presenter</name>
+	<description>SC module presenter layer.</description>
+	<packaging>jar</packaging>
+	
+	<!-- ===================== Dependencies ===================== -->
+	
+	<dependencies>
+	
+		<!-- DNet dependencies -->
+		
+		<dependency>
+			<groupId>net.nan21.dnet</groupId>
+			<artifactId>nan21.dnet.core.api</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>net.nan21.dnet</groupId>
+			<artifactId>nan21.dnet.core.domain</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>net.nan21.dnet</groupId>
+			<artifactId>nan21.dnet.core.presenter</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>net.nan21.dnet</groupId>
+			<artifactId>nan21.dnet.module.bd.business.api</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>net.nan21.dnet</groupId>
+			<artifactId>nan21.dnet.module.bd.domain</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>net.nan21.dnet</groupId>
+			<artifactId>nan21.dnet.module.md.business.api</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>net.nan21.dnet</groupId>
+			<artifactId>nan21.dnet.module.md.domain</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>net.nan21.dnet</groupId>
+			<artifactId>nan21.dnet.module.tx.business.api</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>net.nan21.dnet</groupId>
+			<artifactId>nan21.dnet.module.tx.domain</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+			<type>jar</type>
+		</dependency>
+	
+		<!-- External libraries -->
+		
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-engine</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>com.springsource.javax.mail</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>com.springsource.org.apache.commons.lang</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>com.springsource.org.codehaus.jackson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>com.springsource.org.codehaus.jackson.mapper</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.nan21.osgi</groupId>
+			<artifactId>net.nan21.osgi.opencsv</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>org.springframework.beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>org.springframework.context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>org.springframework.jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>org.springframework.orm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>org.springframework.transaction</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-core</artifactId>
+		</dependency>
+	</dependencies>
+</project>

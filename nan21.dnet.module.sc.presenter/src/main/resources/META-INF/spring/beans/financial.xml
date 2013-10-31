@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+				http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context 
+				http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<!-- ==================== PaymentOut ==================== -->
+		
+	<bean id="PaymentOut_Ds" scope="singleton" lazy-init="true"
+		class="net.nan21.dnet.core.presenter.service.ds.DefaultEntityDsService">
+		<property name="modelClass" value="net.nan21.dnet.module.sc.presenter.impl.financial.model.PaymentOut_Ds"/>
+		<property name="filterClass" value="net.nan21.dnet.module.sc.presenter.impl.financial.model.PaymentOut_DsFilter"/>
+		<property name="entityClass" value="net.nan21.dnet.module.tx.domain.impl.financial.Payment"/>
+		<property name="converterClass" value="net.nan21.dnet.module.sc.presenter.impl.financial.cnv.PaymentOut_DsCnv" />
+		<property name="rpcData" >
+			<map>
+				<entry key="confirm">
+					<bean class="net.nan21.dnet.core.presenter.descriptor.RpcDefinition">
+						<constructor-arg name="delegateClass" value="net.nan21.dnet.module.sc.presenter.ext.financial.delegate.PaymentOut_Pd"/>
+						<constructor-arg name="methodName" value="confirm" />
+						<constructor-arg name="reloadFromEntity" value="true" />
+					</bean>
+				</entry>
+				<entry key="unConfirm">
+					<bean class="net.nan21.dnet.core.presenter.descriptor.RpcDefinition">
+						<constructor-arg name="delegateClass" value="net.nan21.dnet.module.sc.presenter.ext.financial.delegate.PaymentOut_Pd"/>
+						<constructor-arg name="methodName" value="unConfirm" />
+						<constructor-arg name="reloadFromEntity" value="true" />
+					</bean>
+				</entry>
+				<entry key="post">
+					<bean class="net.nan21.dnet.core.presenter.descriptor.RpcDefinition">
+						<constructor-arg name="delegateClass" value="net.nan21.dnet.module.sc.presenter.ext.financial.delegate.PaymentOut_Pd"/>
+						<constructor-arg name="methodName" value="post" />
+						<constructor-arg name="reloadFromEntity" value="true" />
+					</bean>
+				</entry>
+				<entry key="unPost">
+					<bean class="net.nan21.dnet.core.presenter.descriptor.RpcDefinition">
+						<constructor-arg name="delegateClass" value="net.nan21.dnet.module.sc.presenter.ext.financial.delegate.PaymentOut_Pd"/>
+						<constructor-arg name="methodName" value="unPost" />
+						<constructor-arg name="reloadFromEntity" value="true" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<!-- ==================== PaymentOutLov ==================== -->
+		
+	<bean id="PaymentOutLov_Ds" scope="singleton" lazy-init="true"
+		class="net.nan21.dnet.core.presenter.service.ds.DefaultEntityDsService">
+		<property name="modelClass" value="net.nan21.dnet.module.sc.presenter.impl.financial.model.PaymentOutLov_Ds"/>
+		<property name="entityClass" value="net.nan21.dnet.module.tx.domain.impl.financial.Payment"/>
+		<property name="readOnly" value="true" />
+	</bean>
+</beans>

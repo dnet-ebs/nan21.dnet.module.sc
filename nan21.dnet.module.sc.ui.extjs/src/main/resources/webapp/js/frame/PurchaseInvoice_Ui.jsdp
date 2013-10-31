@@ -1,0 +1,6 @@
+[
+	"nan21.dnet.module.sc.ui.extjs/dc/PurchaseInvoiceTax_Dc", 
+	"nan21.dnet.module.sc.ui.extjs/dc/PurchaseInvoice_Dc", 
+	"nan21.dnet.module.sc.ui.extjs/dc/PurchaseInvoiceLineTax_Dc", 
+	"nan21.dnet.module.sc.ui.extjs/dc/PurchaseInvoiceLine_Dc"
+]

@@ -1,0 +1,5 @@
+[
+	"nan21.dnet.module.sc.ui.extjs/ds/PurchaseOrderLine_Ds", 
+	"nan21.dnet.module.md.ui.extjs/lov/ProductAccounts_Lov", 
+	"nan21.dnet.module.md.ui.extjs/lov/TaxesApplicable_Lov"
+]

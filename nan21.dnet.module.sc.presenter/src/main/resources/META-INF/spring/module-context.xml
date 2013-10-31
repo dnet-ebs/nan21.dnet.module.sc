@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration
+		http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+
+	<bean id="serviceLocator" 
+		class="net.nan21.dnet.core.presenter.service.ServiceLocator"/>
+
+	<bean id="dsDefinitions" class="net.nan21.dnet.core.presenter.descriptor.DsDefinitions"/>
+
+	<bean id="jobDefinitions" class="net.nan21.dnet.core.presenter.descriptor.JobDefinitions"/>
+
+	<bean id="dsServiceFactory" 
+			class="net.nan21.dnet.core.presenter.service.ds.DsServiceFactory">
+		<property name="entityServiceFactories" ref="osgiEntityServiceFactories"></property>
+	</bean>
+
+	<bean id="asgnServiceFactory"
+			class="net.nan21.dnet.core.presenter.service.asgn.AsgnServiceFactory">
+		<property name="asgnTxServiceFactories" ref="osgiAsgnTxServiceFactories"></property>
+	</bean>
+
+	<bean id="jobFactory" 
+			class="net.nan21.dnet.core.presenter.service.job.PresenterJobFactory">
+	</bean>
+	 
+	
+	<!-- Services 
+
+	<import resource="beans/account.xml"/>-->
+	<import resource="beans/order.xml"/>
+	<import resource="beans/invoice.xml"/>
+	<import resource="beans/financial.xml"/>
+</beans>

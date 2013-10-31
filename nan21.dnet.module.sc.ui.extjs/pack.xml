@@ -1,0 +1,32 @@
+<project name="nan21.dnet.modules.ad.ui.extjs.min" default="run" basedir=".">
+	<description>
+		Minimize the javascript files
+    </description>
+
+	<property name="sourcePathJs" value="${basedir}/src/main/resources/webapp/js" />
+	<property name="targetPathJs" value="${basedir}/target/classes/webapp/js" />
+	<property name="sourcePathResources" value="${basedir}/src/main/resources/webapp/resources" />
+    <property name="targetPathResources" value="${basedir}/target/classes/webapp/resources" />
+	<property name="yui.path" value="yui.path" />
+
+	<target name="run" depends="minimize">
+		<echo>Done.</echo>
+	</target>
+
+	<target name="minimize" description="Minimize files.">
+		<delete >
+			<fileset dir="${targetPathJs}" includes="**/*.js" /> 
+		</delete>
+		<echo message="Minimizing files..." />
+		<apply executable="java" parallel="false" verbose="true">
+			<fileset dir="${sourcePathJs}" includes="**/*.js" />
+			<arg line="-jar" />
+			<arg path="${yui.path}" />
+			<srcfile />
+			<arg line="-o" />
+			<mapper type="glob" from="*.js" to="${targetPathJs}/*.js" />
+			<targetfile />
+		</apply>
+		<echo message="Done." />
+	</target>
+</project>

@@ -1,0 +1,5 @@
+[
+	"nan21.dnet.module.md.ui.extjs/dc/VendorAccount_Dc", 
+	"nan21.dnet.module.sc.ui.extjs/dc/VendorAccountCtxInvoice_Dc", 
+	"nan21.dnet.module.sc.ui.extjs/dc/VendorAccountCtxOrder_Dc"
+]
