@@ -30,10 +30,15 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Ui" , {
 	 */
 	_defineElements_: function() {
 		this._getBuilder_()
+		.addButton({name:"btnShowBpAccount", disabled:true, handler: this.onBtnShowBpAccount,
+				stateManager:{ name:"selected_one", dc:"ord" }, scope:this})
 		.addButton({name:"btnConfirm", iconCls:"icon-action-commit", disabled:true, handler: this.onBtnConfirm,
 				stateManager:{ name:"selected_one_clean", dc:"ord" , and: function(dc) {return (dc.record && !dc.record.get("confirmed"));}}, scope:this})
 		.addButton({name:"btnUnConfirm", iconCls:"icon-action-rollback", disabled:true, handler: this.onBtnUnConfirm,
 				stateManager:{ name:"selected_one_clean", dc:"ord" , and: function(dc) {return (dc.record && dc.record.get("confirmed") && !dc.record.get("posted")  );}}, scope:this})
+		.addButton({name:"btnShowCopyLines", disabled:true, handler: this.onBtnShowCopyLines,
+				stateManager:{ name:"record_is_clean", dc:"ord" , and: function(dc) {return (dc.record && !dc.record.get("confirmed"));}}, scope:this})
+		.addButton({name:"btnDoCopyLines", disabled:false, handler: this.onBtnDoCopyLines, scope:this})
 		.addButton({name:"btnCreateContinue", disabled:true, handler: this.onBtnCreateContinue,
 				stateManager:{ name:"record_is_dirty", dc:"ord" , and: function(dc) {return (dc.record.isValid());}}, scope:this})
 		.addButton({name:"btnCreateCancel", disabled:false, handler: this.onBtnCreateCancel, scope:this})
@@ -41,6 +46,11 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Ui" , {
 		.addDcGridView("ord", {name:"ordList", xtype:"sc_PurchaseOrder_Dc$List"})
 		.addDcFormView("ord", {name:"ordCreate", xtype:"sc_PurchaseOrder_Dc$Create"})
 		.addDcFormView("ord", {name:"ordEditMain", xtype:"sc_PurchaseOrder_Dc$Edit"})
+		.addDcFormView("ord", {name:"copyLinesForm", width:400, xtype:"sc_PurchaseOrder_Dc$CopyLinesForm"})
+		.addWindow({name:"wdwCopyLines", _hasTitle_:true, closeAction:'hide', resizable:true, layout:"fit", modal:true,
+			items:[this._elems_.get("copyLinesForm")], 
+					dockedItems:[{xtype:"toolbar", ui:"footer", dock:'bottom', weight:-1,
+						items:[ this._elems_.get("btnDoCopyLines")]}]})
 		.addDcGridView("tax", {name:"taxList", _hasTitle_:true, xtype:"sc_PurchaseOrderTax_Dc$List"})
 		.addDcFilterFormView("line", {name:"lineFilter", _hasTitle_:true, width:250, xtype:"sc_PurchaseOrderLine_Dc$FilterCtx", collapsible:true, collapsed:true
 		})
@@ -94,7 +104,7 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Ui" , {
 			.addTitle().addSeparator().addSeparator()
 			.addBack().addSave().addNew().addCopy().addCancel().addPrevRec().addNextRec()
 			.addSeparator().addSeparator()
-			.addButtons([this._elems_.get("btnConfirm") ,this._elems_.get("btnUnConfirm") ])
+			.addButtons([this._elems_.get("btnShowBpAccount") ,this._elems_.get("btnShowCopyLines") ,this._elems_.get("btnConfirm") ,this._elems_.get("btnUnConfirm") ])
 			.addReports()
 		.end()
 		.beginToolbar("tlbTaxList", {dc: "tax"})
@@ -127,6 +137,26 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Ui" , {
 
 	
 	/**
+	 * On-Click handler for button btnShowBpAccount
+	 */
+	,onBtnShowBpAccount: function() {
+		var bundle = Dnet.bundle.sc;
+		var frame = "VendorAccount_Ui";
+		getApplication().showFrame(frame,{
+			url:Dnet.buildUiPath(bundle, frame, false),
+			params: {
+				company: this._getDc_("ord").getRecord().get("company"),
+				companyId: this._getDc_("ord").getRecord().get("companyId"),
+				bpartner: this._getDc_("ord").getRecord().get("bpartner"),
+				bpartnerId: this._getDc_("ord").getRecord().get("bpartnerId")
+			},
+			callback: function (params) {
+				this._when_called_to_edit_(params);
+			}
+		});
+	}
+	
+	/**
 	 * On-Click handler for button btnConfirm
 	 */
 	,onBtnConfirm: function() {
@@ -143,6 +173,38 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Ui" , {
 	,onBtnUnConfirm: function() {
 		var o={
 			name:"unConfirm",
+			modal:true
+		};
+		this._getDc_("ord").doRpcData(o);
+	}
+	
+	/**
+	 * On-Click handler for button btnShowCopyLines
+	 */
+	,onBtnShowCopyLines: function() {
+		this._getWindow_("wdwCopyLines").show();
+	}
+	
+	/**
+	 * On-Click handler for button btnDoCopyLines
+	 */
+	,onBtnDoCopyLines: function() {
+		var successFn = function(dc,response,serviceName,specs) {
+			this._getDc_("line").doQuery();
+			this._getDc_("ord").doReloadRecord();
+			this._getWindow_("wdwCopyLines").close();
+		};
+		var failureFn = function(dc,response,serviceName,specs) {
+			this._getWindow_("wdwCopyLines").close();
+		}; 
+		var o={
+			name:"copyLines",
+			callbacks:{
+				successFn: successFn,
+				successScope: this,
+				failureFn: failureFn,
+				failureScope: this
+			},
 			modal:true
 		};
 		this._getDc_("ord").doRpcData(o);

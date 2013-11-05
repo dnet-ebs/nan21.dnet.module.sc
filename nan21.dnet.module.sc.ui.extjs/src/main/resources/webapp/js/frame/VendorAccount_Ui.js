@@ -162,4 +162,20 @@ Ext.define(Dnet.ns.sc + "VendorAccount_Ui" , {
 			}
 		});
 	}
+	
+	,_when_called_to_edit_: function(params) {
+		
+		var account = this._getDc_("account");
+		if (account.isDirty()) {
+			this._alert_dirty_();
+			return;
+		}
+		account.doClearQuery();
+		 
+		account.setFilterValue("companyId", params.companyId);
+		account.setFilterValue("company", params.company );
+		account.setFilterValue("bpartnerId", params.bpartnerId );
+		account.setFilterValue("bpartner", params.bpartner );
+		account.doQuery();
+	}
 });

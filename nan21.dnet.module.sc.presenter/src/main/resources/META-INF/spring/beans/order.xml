@@ -15,6 +15,7 @@
 		<property name="filterClass" value="net.nan21.dnet.module.sc.presenter.impl.order.model.PurchaseOrder_DsFilter"/>
 		<property name="entityClass" value="net.nan21.dnet.module.tx.domain.impl.purchase.PurchaseOrder"/>
 		<property name="paramClass" value="net.nan21.dnet.module.sc.presenter.impl.order.model.PurchaseOrder_DsParam"/>
+		<property name="queryBuilderClass" value="net.nan21.dnet.module.sc.presenter.impl.order.qb.PurchaseOrder_DsQb" />
 		<property name="converterClass" value="net.nan21.dnet.module.sc.presenter.impl.order.cnv.PurchaseOrder_DsCnv" />
 		<property name="rpcData" >
 			<map>

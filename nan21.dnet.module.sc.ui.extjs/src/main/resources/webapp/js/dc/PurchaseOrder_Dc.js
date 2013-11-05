@@ -36,6 +36,11 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Dc$Filter" , {
 			retFieldMapping: [{lovField:"id", dsField: "id"} ],
 			filterFieldMapping: [{lovField:"companyId", dsField: "companyId"} ]})
 		.addBooleanField({ name:"confirmed", dataIndex:"confirmed"})
+		.addLov({name:"filterPeriod", paramIndex:"filterPeriod", xtype:"md_FiscalPeriods_Lov",
+			retFieldMapping: [{lovField:"startDate", dsField: "docDate_From"} ,{lovField:"endDate", dsField: "docDate_To"} ]})
+		.addLov({name:"filterProduct", paramIndex:"filterProductAccount", xtype:"md_ProductAccounts_Lov", caseRestriction:"uppercase",
+			retFieldMapping: [{lovField:"id", dsParam: "filterProductAccountId"} ],
+			filterFieldMapping: [{lovField:"companyId", dsField: "companyId"}, {lovField:"purchase", value: "true"} ]})
 		.addDateField({name:"docDate_From", dataIndex:"docDate_From", emptyText:"From" })
 		.addDateField({name:"docDate_To", dataIndex:"docDate_To", emptyText:"To" })
 		.addFieldContainer({name: "docDate", fieldLabel:"Doc Date"})
@@ -58,7 +63,7 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Dc$Filter" , {
 		.addChildrenTo("main", ["col1", "col3", "col4", "col5"])
 		.addChildrenTo("col1", ["company", "bpartner", "docType"])
 		.addChildrenTo("col3", ["docNo", "currency"])
-		.addChildrenTo("col4", ["docDate"])
+		.addChildrenTo("col4", ["filterPeriod", "docDate", "filterProduct"])
 		.addChildrenTo("col5", ["confirmed"]);
 	}
 });
@@ -95,6 +100,36 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Dc$List" , {
 		.addNumberColumn({ name:"amountRef", dataIndex:"amountRef", hidden:true, decimals:6})
 		.addBooleanColumn({ name:"confirmed", dataIndex:"confirmed"})
 		.addDefaults();
+	}
+});
+
+/* ================= EDIT FORM: CopyLinesForm ================= */
+
+Ext.define(Dnet.ns.sc + "PurchaseOrder_Dc$CopyLinesForm" , {
+	extend: "dnet.core.dc.view.AbstractDcvEditForm",
+	alias: "widget.sc_PurchaseOrder_Dc$CopyLinesForm",
+
+	/**
+	 * Components definition
+	 */
+	_defineElements_: function() {
+		this._getBuilder_()
+		
+		/* =========== controls =========== */
+		.addLov({name:"copyFrom", paramIndex:"copyFrom", xtype:"sc_PurchaseOrders_Lov",
+			retFieldMapping: [{lovField:"id", dsParam: "copyFromId"} ],
+			filterFieldMapping: [{lovField:"bpAccountId", dsField: "bpAccountId"} ]})
+		
+		/* =========== containers =========== */
+		.addPanel({ name:"main", autoScroll:true, layout:"form"});
+	},
+
+	/**
+	 * Combine the components
+	 */			
+	_linkElements_: function() {
+		this._getBuilder_()
+		.addChildrenTo("main", ["copyFrom"]);
 	}
 });
 
@@ -155,6 +190,7 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Dc$Edit" , {
 		.addDateField({name:"docDate", dataIndex:"docDate", noEdit:true })
 		.addTextField({ name:"bpartner", dataIndex:"bpartner", noEdit:true , caseRestriction:"uppercase"})
 		.addTextField({ name:"company", dataIndex:"company", noEdit:true , caseRestriction:"uppercase"})
+		.addTextArea({ name:"notes", dataIndex:"notes", height:80})
 		.addTextField({ name:"currency", dataIndex:"currency", noEdit:true , fieldCls:"important-field", caseRestriction:"uppercase"})
 		.addNumberField({name:"netAmount", dataIndex:"netAmount", noEdit:true , decimals:6})
 		.addNumberField({name:"taxAmount", dataIndex:"taxAmount", noEdit:true , decimals:6})
@@ -167,7 +203,8 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Dc$Edit" , {
 		.addPanel({ name:"col1", width:250, layout:"form"})
 		.addPanel({ name:"col2", width:200, layout:"form"})
 		.addPanel({ name:"col3", width:250, layout:"form"})
-		.addPanel({ name:"col4", width:170, layout:"form"});
+		.addPanel({ name:"col4", width:170, layout:"form"})
+		.addPanel({ name:"col5", width:250, layout:"form", defaults:{labelAlign:"top"}});
 	},
 
 	/**
@@ -175,11 +212,12 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Dc$Edit" , {
 	 */			
 	_linkElements_: function() {
 		this._getBuilder_()
-		.addChildrenTo("main", ["col1", "col2", "col3", "col4"])
+		.addChildrenTo("main", ["col1", "col2", "col3", "col4", "col5"])
 		.addChildrenTo("col1", ["docType", "company", "bpartner"])
 		.addChildrenTo("col2", ["docDate", "docNo", "currency"])
 		.addChildrenTo("col3", ["netAmount", "taxAmount", "amount"])
-		.addChildrenTo("col4", ["confirmed"]);
+		.addChildrenTo("col4", ["confirmed"])
+		.addChildrenTo("col5", ["notes"]);
 	},
 	/* ==================== Business functions ==================== */
 	

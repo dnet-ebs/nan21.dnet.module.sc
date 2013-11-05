@@ -80,6 +80,9 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_DsParam", {
 	
 	fields: [
 		{name:"copyFrom", type:"string"},
-		{name:"copyFromId", type:"string"}
+		{name:"copyFromId", type:"string"},
+		{name:"filterPeriod", type:"string", forFilter:true},
+		{name:"filterProductAccount", type:"string", forFilter:true},
+		{name:"filterProductAccountId", type:"string"}
 	]
 });

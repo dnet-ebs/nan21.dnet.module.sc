@@ -1,8 +1,10 @@
 [
 	"nan21.dnet.module.sc.ui.extjs/ds/PurchaseOrder_Ds", 
+	"nan21.dnet.module.sc.ui.extjs/lov/PurchaseOrders_Lov", 
 	"nan21.dnet.module.md.ui.extjs/lov/DocTypes_Lov", 
 	"nan21.dnet.module.md.ui.extjs/lov/OrgsLegalEntity_Lov", 
 	"nan21.dnet.module.md.ui.extjs/lov/VendorAccounts_Lov", 
 	"nan21.dnet.module.bd.ui.extjs/lov/Currencies_Lov", 
-	"nan21.dnet.module.sc.ui.extjs/lov/PurchaseOrders_Lov"
+	"nan21.dnet.module.md.ui.extjs/lov/FiscalPeriods_Lov", 
+	"nan21.dnet.module.md.ui.extjs/lov/ProductAccounts_Lov"
 ]
