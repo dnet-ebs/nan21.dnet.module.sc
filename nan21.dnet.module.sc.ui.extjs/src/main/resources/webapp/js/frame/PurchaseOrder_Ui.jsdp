@@ -1,6 +1,7 @@
 [
 	"nan21.dnet.module.sc.ui.extjs/dc/PurchaseOrderLineTax_Dc", 
 	"nan21.dnet.module.sc.ui.extjs/dc/PurchaseOrder_Dc", 
+	"nan21.dnet.module.bd.ui.extjs/dc/Attachment_Dc", 
 	"nan21.dnet.module.sc.ui.extjs/dc/PurchaseOrderTax_Dc", 
 	"nan21.dnet.module.sc.ui.extjs/dc/PurchaseOrderLine_Dc"
 ]

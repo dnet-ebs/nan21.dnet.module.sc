@@ -15,13 +15,16 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Ui" , {
 		.addDc("ord", Ext.create(Dnet.ns.sc + "PurchaseOrder_Dc" ,{}))	
 		.addDc("tax", Ext.create(Dnet.ns.sc + "PurchaseOrderTax_Dc" ,{}))	
 		.addDc("line", Ext.create(Dnet.ns.sc + "PurchaseOrderLine_Dc" ,{}))	
-		.addDc("lineTax", Ext.create(Dnet.ns.sc + "PurchaseOrderLineTax_Dc" ,{}))
+		.addDc("lineTax", Ext.create(Dnet.ns.sc + "PurchaseOrderLineTax_Dc" ,{}))	
+		.addDc("atch", Ext.create(Dnet.ns.bd + "Attachment_Dc" ,{}))
 		.linkDc("tax", "ord",{fields:[
 			{childField:"orderId", parentField:"id"}]}
 		).linkDc("line", "ord",{fields:[
 			{childField:"orderId", parentField:"id"}, {childField:"companyId", parentField:"companyId"}]}
 		).linkDc("lineTax", "line",{fields:[
 			{childField:"lineId", parentField:"id"}]}
+		).linkDc("atch", "ord",{fields:[
+			{childField:"targetRefid", parentField:"refid"}, {childField:"targetAlias", parentField:"entityAlias"}, {childField:"targetType", value:"N/A"}]}
 		);
 	},
 
@@ -58,6 +61,7 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Ui" , {
 		.addDcFormView("line", {name:"lineEdit", xtype:"sc_PurchaseOrderLine_Dc$EditForm"})
 		.addDcGridView("lineTax", {name:"lineTaxList", _hasTitle_:true, width:400, xtype:"sc_PurchaseOrderLineTax_Dc$CtxList", collapsible:true, collapsed:true
 		})
+		.addDcGridView("atch", {name:"atchList", _hasTitle_:true, xtype:"bd_Attachment_Dc$List"})
 		.addWindow({name:"wdwCreate", _hasTitle_:true, closeAction:'hide', resizable:true, layout:"fit", modal:true,
 			items:[this._elems_.get("ordCreate")], closable:false
 			, 
@@ -79,7 +83,7 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Ui" , {
 		.addChildrenTo("main", ["canvas1", "canvas2"])
 		.addChildrenTo("canvas1", ["ordFilter", "ordList"], ["north", "center"])
 		.addChildrenTo("canvas2", ["ordEditMain", "ordDetailsTab"], ["north", "center"])
-		.addChildrenTo("ordDetailsTab", ["linesPanel", "taxList"])
+		.addChildrenTo("ordDetailsTab", ["linesPanel", "taxList", "atchList"])
 		.addChildrenTo("linesPanel", ["lineFilter", "linesDataPanel", "lineTaxList"], ["west", "center", "east"])
 		.addChildrenTo("linesDataPanel", ["lineList", "lineEdit"])
 		.addToolbarTo("canvas1", "tlbInvList")
@@ -87,7 +91,8 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Ui" , {
 		.addToolbarTo("taxList", "tlbTaxList")
 		.addToolbarTo("lineList", "tlbLineList")
 		.addToolbarTo("lineEdit", "tlbLineEdit")
-		.addToolbarTo("lineTaxList", "tlbLineTaxList");
+		.addToolbarTo("lineTaxList", "tlbLineTaxList")
+		.addToolbarTo("atchList", "tlbAtchList");
 	},
 	
 	/**
@@ -130,6 +135,12 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Ui" , {
 		.beginToolbar("tlbLineTaxList", {dc: "lineTax"})
 			.addTitle().addSeparator().addSeparator()
 			.addQuery()
+			.addSeparator().addAutoLoad()
+			.addReports()
+		.end()
+		.beginToolbar("tlbAtchList", {dc: "atch"})
+			.addTitle().addSeparator().addSeparator()
+			.addQuery().addNew().addDeleteSelected()
 			.addSeparator().addAutoLoad()
 			.addReports()
 		.end();
