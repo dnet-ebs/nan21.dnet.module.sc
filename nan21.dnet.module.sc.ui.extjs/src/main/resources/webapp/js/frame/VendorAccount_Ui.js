@@ -14,10 +14,13 @@ Ext.define(Dnet.ns.sc + "VendorAccount_Ui" , {
 		this._getBuilder_()	
 		.addDc("account", Ext.create(Dnet.ns.md + "VendorAccount_Dc" ,{}))	
 		.addDc("order", Ext.create(Dnet.ns.sc + "VendorAccountCtxOrder_Dc" ,{}))	
-		.addDc("invoice", Ext.create(Dnet.ns.sc + "VendorAccountCtxInvoice_Dc" ,{}))
+		.addDc("invoice", Ext.create(Dnet.ns.sc + "VendorAccountCtxInvoice_Dc" ,{}))	
+		.addDc("payable", Ext.create(Dnet.ns.sc + "VendorAccountCtxPayable_Dc" ,{}))
 		.linkDc("order", "account",{fields:[
 			{childField:"bpAccountId", parentField:"id"}]}
 		).linkDc("invoice", "account",{fields:[
+			{childField:"bpAccountId", parentField:"id"}]}
+		).linkDc("payable", "account",{fields:[
 			{childField:"bpAccountId", parentField:"id"}]}
 		);
 	},
@@ -44,6 +47,7 @@ Ext.define(Dnet.ns.sc + "VendorAccount_Ui" , {
 		})
 		.addDcGridView("invoice", {name:"invoiceList", xtype:"sc_VendorAccountCtxInvoice_Dc$List"})
 		.addPanel({name:"invoicePanel", _hasTitle_:true, layout:"border", defaults:{split:true}})
+		.addDcGridView("payable", {name:"payableList", _hasTitle_:true, xtype:"sc_VendorAccountCtxPayable_Dc$List"})
 		.addPanel({name:"main", layout:"card", activeItem:0})
 		.addPanel({name:"canvas1", preventHeader:true, isCanvas:true, layout:"border", defaults:{split:true}})
 		.addPanel({name:"canvas2", preventHeader:true, isCanvas:true, layout:"border", defaults:{split:true}})
@@ -60,11 +64,12 @@ Ext.define(Dnet.ns.sc + "VendorAccount_Ui" , {
 		.addChildrenTo("main", ["canvas1", "canvas2"])
 		.addChildrenTo("canvas1", ["accountFilter", "accountList"], ["north", "center"])
 		.addChildrenTo("canvas2", ["accountEdit", "accountDetailsTab"], ["north", "center"])
-		.addChildrenTo("accountDetailsTab", ["orderPanel", "invoicePanel"])
+		.addChildrenTo("accountDetailsTab", ["orderPanel", "invoicePanel", "payableList"])
 		.addToolbarTo("canvas1", "tlbAccountList")
 		.addToolbarTo("canvas2", "tlbAccountEdit")
 		.addToolbarTo("orderList", "tlbOrdersList")
-		.addToolbarTo("invoiceList", "tlbInvoicesList");
+		.addToolbarTo("invoiceList", "tlbInvoicesList")
+		.addToolbarTo("payableList", "tlbPayablesList");
 	},
 	
 	/**
@@ -98,6 +103,12 @@ Ext.define(Dnet.ns.sc + "VendorAccount_Ui" , {
 			.addSeparator().addAutoLoad()
 			.addSeparator().addSeparator()
 			.addButtons([this._elems_.get("btnShowInvoice") ])
+			.addReports()
+		.end()
+		.beginToolbar("tlbPayablesList", {dc: "payable"})
+			.addTitle().addSeparator().addSeparator()
+			.addQuery()
+			.addSeparator().addAutoLoad()
 			.addReports()
 		.end();
 	}
