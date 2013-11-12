@@ -16,6 +16,7 @@ import net.nan21.dnet.core.api.annotation.SortField;
 import net.nan21.dnet.core.presenter.model.AbstractAuditableDs;
 import net.nan21.dnet.module.bd.domain.impl.currency.Currency;
 import net.nan21.dnet.module.md.domain.impl.base.DocType;
+import net.nan21.dnet.module.md.domain.impl.base.PaymentTerm;
 import net.nan21.dnet.module.md.domain.impl.bp.BpAccount;
 import net.nan21.dnet.module.md.domain.impl.org.Org;
 import net.nan21.dnet.module.tx.domain.impl.purchase.PurchaseOrder;
@@ -27,7 +28,9 @@ import net.nan21.dnet.module.tx.domain.impl.purchase.PurchaseOrder;
 		@RefLookup(refId = PurchaseOrder_Ds.f_companyId, namedQuery = Org.NQ_FIND_BY_CODE, params = {@Param(name = "code", field = PurchaseOrder_Ds.f_company)}),
 		@RefLookup(refId = PurchaseOrder_Ds.f_bpAccountId, namedQuery = BpAccount.NQ_FIND_BY_ORG_BP_PRIMITIVE, params = {
 				@Param(name = "companyId", field = PurchaseOrder_Ds.f_companyId),
-				@Param(name = "bpartnerId", field = PurchaseOrder_Ds.f_bpartnerId)})})
+				@Param(name = "bpartnerId", field = PurchaseOrder_Ds.f_bpartnerId)}),
+		@RefLookup(refId = PurchaseOrder_Ds.f_paymentMethodId, namedQuery = DocType.NQ_FIND_BY_CODE, params = {@Param(name = "code", field = PurchaseOrder_Ds.f_paymentMethod)}),
+		@RefLookup(refId = PurchaseOrder_Ds.f_paymentTermId, namedQuery = PaymentTerm.NQ_FIND_BY_NAME, params = {@Param(name = "name", field = PurchaseOrder_Ds.f_paymentTerm)})})
 public class PurchaseOrder_Ds extends AbstractAuditableDs<PurchaseOrder> {
 
 	public static final String f_docNo = "docNo";
@@ -54,6 +57,11 @@ public class PurchaseOrder_Ds extends AbstractAuditableDs<PurchaseOrder> {
 	public static final String f_netAmountRef = "netAmountRef";
 	public static final String f_taxAmountRef = "taxAmountRef";
 	public static final String f_amountRef = "amountRef";
+	public static final String f_paymentMethodId = "paymentMethodId";
+	public static final String f_paymentMethod = "paymentMethod";
+	public static final String f_paymentMethodName = "paymentMethodName";
+	public static final String f_paymentTermId = "paymentTermId";
+	public static final String f_paymentTerm = "paymentTerm";
 
 	@DsField
 	private String docNo;
@@ -126,6 +134,21 @@ public class PurchaseOrder_Ds extends AbstractAuditableDs<PurchaseOrder> {
 
 	@DsField(noInsert = true, noUpdate = true)
 	private BigDecimal amountRef;
+
+	@DsField(join = "left", path = "paymentMethod.id")
+	private String paymentMethodId;
+
+	@DsField(join = "left", path = "paymentMethod.code")
+	private String paymentMethod;
+
+	@DsField(join = "left", path = "paymentMethod.name")
+	private String paymentMethodName;
+
+	@DsField(join = "left", path = "paymentTerm.id")
+	private String paymentTermId;
+
+	@DsField(join = "left", path = "paymentTerm.name")
+	private String paymentTerm;
 
 	public PurchaseOrder_Ds() {
 		super();
@@ -325,5 +348,45 @@ public class PurchaseOrder_Ds extends AbstractAuditableDs<PurchaseOrder> {
 
 	public void setAmountRef(BigDecimal amountRef) {
 		this.amountRef = amountRef;
+	}
+
+	public String getPaymentMethodId() {
+		return this.paymentMethodId;
+	}
+
+	public void setPaymentMethodId(String paymentMethodId) {
+		this.paymentMethodId = paymentMethodId;
+	}
+
+	public String getPaymentMethod() {
+		return this.paymentMethod;
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
+	public String getPaymentMethodName() {
+		return this.paymentMethodName;
+	}
+
+	public void setPaymentMethodName(String paymentMethodName) {
+		this.paymentMethodName = paymentMethodName;
+	}
+
+	public String getPaymentTermId() {
+		return this.paymentTermId;
+	}
+
+	public void setPaymentTermId(String paymentTermId) {
+		this.paymentTermId = paymentTermId;
+	}
+
+	public String getPaymentTerm() {
+		return this.paymentTerm;
+	}
+
+	public void setPaymentTerm(String paymentTerm) {
+		this.paymentTerm = paymentTerm;
 	}
 }

@@ -4,26 +4,31 @@
  * Use is subject to license terms.
  */
 	
-Ext.define(Dnet.ns.sc + "Payable_Ds", {
+Ext.define(Dnet.ns.sc + "PaymentOutAmount_Ds", {
 	extend: 'Ext.data.Model',
 	
 	fields: [
-		{name:"dueDate", type:"date", dateFormat:Dnet.MODEL_DATE_FORMAT},
-		{name:"dueInDays", type:"int", useNull:true},
-		{name:"amountInitial", type:"float", useNull:true},
-		{name:"amountPayed", type:"float", useNull:true},
-		{name:"amountDue", type:"float", useNull:true},
 		{name:"companyId", type:"string"},
 		{name:"company", type:"string"},
 		{name:"vendorAccountId", type:"string"},
 		{name:"vendorId", type:"string"},
 		{name:"vendor", type:"string"},
 		{name:"vendorName", type:"string"},
+		{name:"paymentId", type:"string"},
+		{name:"paymentDocNo", type:"string"},
+		{name:"paymentSourceDocNo", type:"string"},
+		{name:"paymentDate", type:"date", dateFormat:Dnet.MODEL_DATE_FORMAT},
+		{name:"paymentAmount", type:"float", useNull:true},
+		{name:"currentPayment", type:"float", useNull:true},
+		{name:"amountId", type:"string"},
+		{name:"amountInitial", type:"float", useNull:true},
+		{name:"amountPayed", type:"float", useNull:true},
+		{name:"amountDue", type:"float", useNull:true},
 		{name:"currencyId", type:"string"},
 		{name:"currency", type:"string"},
 		{name:"invoiceId", type:"string"},
-		{name:"invoiceNo", type:"string"},
-		{name:"invoiceDate", type:"date", dateFormat:Dnet.MODEL_DATE_FORMAT},
+		{name:"invoice", type:"string"},
+		{name:"invoiceDocDate", type:"date", dateFormat:Dnet.MODEL_DATE_FORMAT},
 		{name:"id", type:"string"},
 		{name:"clientId", type:"string"},
 		{name:"createdAt", type:"date", dateFormat:Dnet.MODEL_DATE_FORMAT},
@@ -45,14 +50,8 @@ Dnet.createFilterModelFromRecordModel({
 		this.set("company", getApplication().getSession().company.code);
 	},
 	fields: [
-		{name:"dueDate_From",type:"date", dateFormat:Dnet.MODEL_DATE_FORMAT},
-		{name:"dueDate_To",type:"date", dateFormat:Dnet.MODEL_DATE_FORMAT},
 		{name:"amountInitial_From",type:"float", useNull:true},
-		{name:"amountInitial_To",type:"float", useNull:true},
-		{name:"amountPayed_From",type:"float", useNull:true},
-		{name:"amountPayed_To",type:"float", useNull:true},
-		{name:"amountDue_From",type:"float", useNull:true},
-		{name:"amountDue_To",type:"float", useNull:true}
+		{name:"amountInitial_To",type:"float", useNull:true}
 	],
-	recordModelFqn: Dnet.ns.sc + "Payable_Ds"
+	recordModelFqn: Dnet.ns.sc + "PaymentOutAmount_Ds"
 });

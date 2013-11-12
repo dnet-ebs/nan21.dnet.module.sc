@@ -22,10 +22,10 @@ public class PaymentOut_DsCnv
 	protected void modelToEntityReferences(PaymentOut_Ds ds, Payment e,
 			boolean isInsert, EntityManager em) throws Exception {
 
-		if (ds.getBpartnerId() == null) {
+		if (ds.getVendorId() == null) {
 			BusinessPartner x = ((IBusinessPartnerService) findEntityService(BusinessPartner.class))
-					.findByCode(ds.getBpartner());
-			ds.setBpartnerId(x.getId());
+					.findByCode(ds.getVendor());
+			ds.setVendorId(x.getId());
 		}
 		super.modelToEntityReferences(ds, e, isInsert, em);
 	}

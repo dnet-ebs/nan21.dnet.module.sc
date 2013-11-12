@@ -1,3 +1,6 @@
 [
-	"nan21.dnet.module.sc.ui.extjs/dc/PaymentOut_Dc"
+	"nan21.dnet.module.sc.ui.extjs/dc/PaymentOutAmountCtx_Dc", 
+	"nan21.dnet.module.sc.ui.extjs/dc/PaymentOut_Dc", 
+	"nan21.dnet.module.sc.ui.extjs/dc/PaymentOutAmountProposal_Dc", 
+	"nan21.dnet.module.sc.ui.extjs/dc/PaymentOutLine_Dc"
 ]

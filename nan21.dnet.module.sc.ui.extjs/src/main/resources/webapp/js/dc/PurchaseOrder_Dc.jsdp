@@ -5,6 +5,7 @@
 	"nan21.dnet.module.md.ui.extjs/lov/OrgsLegalEntity_Lov", 
 	"nan21.dnet.module.md.ui.extjs/lov/VendorAccounts_Lov", 
 	"nan21.dnet.module.bd.ui.extjs/lov/Currencies_Lov", 
+	"nan21.dnet.module.md.ui.extjs/lov/PaymentTerms_Lov", 
 	"nan21.dnet.module.md.ui.extjs/lov/FiscalPeriods_Lov", 
 	"nan21.dnet.module.md.ui.extjs/lov/ProductAccounts_Lov"
 ]

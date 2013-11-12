@@ -4,6 +4,7 @@
  * Use is subject to license terms.
  */
 package net.nan21.dnet.module.sc.presenter.impl.financial.model;
+import java.math.BigDecimal;
 import java.util.Date;
 import net.nan21.dnet.module.sc.presenter.impl.financial.model.PaymentOut_Ds;
 
@@ -16,6 +17,10 @@ public class PaymentOut_DsFilter extends PaymentOut_Ds {
 	private Date docDate_From;
 
 	private Date docDate_To;
+
+	private BigDecimal amount_From;
+
+	private BigDecimal amount_To;
 
 	public Date getDocDate_From() {
 		return this.docDate_From;
@@ -31,5 +36,21 @@ public class PaymentOut_DsFilter extends PaymentOut_Ds {
 
 	public void setDocDate_To(Date docDate_To) {
 		this.docDate_To = docDate_To;
+	}
+
+	public BigDecimal getAmount_From() {
+		return this.amount_From;
+	}
+
+	public BigDecimal getAmount_To() {
+		return this.amount_To;
+	}
+
+	public void setAmount_From(BigDecimal amount_From) {
+		this.amount_From = amount_From;
+	}
+
+	public void setAmount_To(BigDecimal amount_To) {
+		this.amount_To = amount_To;
 	}
 }

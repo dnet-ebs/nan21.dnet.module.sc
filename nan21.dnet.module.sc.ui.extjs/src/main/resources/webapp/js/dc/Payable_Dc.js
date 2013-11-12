@@ -24,26 +24,26 @@ Ext.define(Dnet.ns.sc + "Payable_Dc$Filter" , {
 		/* =========== controls =========== */
 		.addLov({name:"company", dataIndex:"company", allowBlank:false, xtype:"md_OrgsLegalEntity_Lov", caseRestriction:"uppercase",
 			retFieldMapping: [{lovField:"id", dsField: "companyId"} ]})
-		.addLov({name:"vendor", dataIndex:"vendor", xtype:"md_CustomerAccounts_Lov", caseRestriction:"uppercase",
-			retFieldMapping: [{lovField:"id", dsField: "bpAccountId"} ],
+		.addLov({name:"vendor", dataIndex:"vendor", xtype:"md_VendorAccounts_Lov", caseRestriction:"uppercase",
+			retFieldMapping: [{lovField:"id", dsField: "vendorAccountId"} ],
 			filterFieldMapping: [{lovField:"companyId", dsField: "companyId"} ]})
 		.addLov({name:"currency", dataIndex:"currency", xtype:"bd_Currencies_Lov", caseRestriction:"uppercase",
 			retFieldMapping: [{lovField:"id", dsField: "currencyId"} ]})
-		.addNumberField({name:"amountRemained_From", dataIndex:"amountRemained_From", emptyText:"From" })
-		.addNumberField({name:"amountRemained_To", dataIndex:"amountRemained_To", emptyText:"To" })
-		.addFieldContainer({name: "amountRemained", fieldLabel:"Amount Remained"})
-			.addChildrenTo("amountRemained",["amountRemained_From", "amountRemained_To"])
+		.addNumberField({name:"amountInitial_From", dataIndex:"amountInitial_From", emptyText:"From" })
+		.addNumberField({name:"amountInitial_To", dataIndex:"amountInitial_To", emptyText:"To" })
+		.addFieldContainer({name: "amountInitial"})
+			.addChildrenTo("amountInitial",["amountInitial_From", "amountInitial_To"])
 		.addNumberField({name:"amountPayed_From", dataIndex:"amountPayed_From", emptyText:"From" })
 		.addNumberField({name:"amountPayed_To", dataIndex:"amountPayed_To", emptyText:"To" })
-		.addFieldContainer({name: "amountPayed", fieldLabel:"Amount Payed"})
+		.addFieldContainer({name: "amountPayed"})
 			.addChildrenTo("amountPayed",["amountPayed_From", "amountPayed_To"])
-		.addNumberField({name:"amount_From", dataIndex:"amount_From", emptyText:"From" })
-		.addNumberField({name:"amount_To", dataIndex:"amount_To", emptyText:"To" })
-		.addFieldContainer({name: "amount", fieldLabel:"Amount"})
-			.addChildrenTo("amount",["amount_From", "amount_To"])
+		.addNumberField({name:"amountDue_From", dataIndex:"amountDue_From", emptyText:"From" })
+		.addNumberField({name:"amountDue_To", dataIndex:"amountDue_To", emptyText:"To" })
+		.addFieldContainer({name: "amountDue"})
+			.addChildrenTo("amountDue",["amountDue_From", "amountDue_To"])
 		.addDateField({name:"dueDate_From", dataIndex:"dueDate_From", emptyText:"From" })
 		.addDateField({name:"dueDate_To", dataIndex:"dueDate_To", emptyText:"To" })
-		.addFieldContainer({name: "dueDate", fieldLabel:"Due Date"})
+		.addFieldContainer({name: "dueDate"})
 			.addChildrenTo("dueDate",["dueDate_From", "dueDate_To"])
 		
 		/* =========== containers =========== */
@@ -61,7 +61,7 @@ Ext.define(Dnet.ns.sc + "Payable_Dc$Filter" , {
 		this._getBuilder_()
 		.addChildrenTo("main", ["col1", "col2", "col3"])
 		.addChildrenTo("col1", ["company", "vendor", "currency"])
-		.addChildrenTo("col2", ["amount", "amountPayed", "amountRemained"])
+		.addChildrenTo("col2", ["amountInitial", "amountPayed", "amountDue"])
 		.addChildrenTo("col3", ["dueDate"]);
 	}
 });
@@ -85,9 +85,9 @@ Ext.define(Dnet.ns.sc + "Payable_Dc$List" , {
 		.addTextColumn({ name:"vendorName", dataIndex:"vendorName", hidden:true, width:200})
 		.addDateColumn({ name:"dueDate", dataIndex:"dueDate", _mask_: Masks.DATE})
 		.addNumberColumn({ name:"dueInDays", dataIndex:"dueInDays", sortable:false, width:60})
-		.addNumberColumn({ name:"amount", dataIndex:"amount", width:120, decimals:6})
+		.addNumberColumn({ name:"amountInitial", dataIndex:"amountInitial", width:120, decimals:6})
 		.addNumberColumn({ name:"amountPayed", dataIndex:"amountPayed", width:120, decimals:6})
-		.addNumberColumn({ name:"amountRemained", dataIndex:"amountRemained", width:120, decimals:6})
+		.addNumberColumn({ name:"amountDue", dataIndex:"amountDue", width:120, decimals:6})
 		.addTextColumn({ name:"currency", dataIndex:"currency", width:60})
 		.addTextColumn({ name:"currencyId", dataIndex:"currencyId", hidden:true, width:100})
 		.addTextColumn({ name:"invoiceNo", dataIndex:"invoiceNo", width:80})

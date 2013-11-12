@@ -21,7 +21,7 @@ Ext.define(Dnet.ns.sc + "VendorAccount_Ui" , {
 		).linkDc("invoice", "account",{fields:[
 			{childField:"bpAccountId", parentField:"id"}]}
 		).linkDc("payable", "account",{fields:[
-			{childField:"bpAccountId", parentField:"id"}]}
+			{childField:"vendorAccountId", parentField:"id"}]}
 		);
 	},
 

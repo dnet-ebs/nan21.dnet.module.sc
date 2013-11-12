@@ -6,13 +6,15 @@
 package net.nan21.dnet.module.sc.presenter.impl.financial.model;
 import java.math.BigDecimal;
 import java.util.Date;
-import net.nan21.dnet.module.sc.presenter.impl.financial.model.Payable_Ds;
+import net.nan21.dnet.module.sc.presenter.impl.financial.model.PaymentOutAmountProposal_Ds;
 
 /**
  * Helper filter object to run query by example with range values.
  *
  */
-public class Payable_DsFilter extends Payable_Ds {
+public class PaymentOutAmountProposal_DsFilter
+		extends
+			PaymentOutAmountProposal_Ds {
 
 	private Date dueDate_From;
 
@@ -21,10 +23,6 @@ public class Payable_DsFilter extends Payable_Ds {
 	private BigDecimal amountInitial_From;
 
 	private BigDecimal amountInitial_To;
-
-	private BigDecimal amountPayed_From;
-
-	private BigDecimal amountPayed_To;
 
 	private BigDecimal amountDue_From;
 
@@ -60,22 +58,6 @@ public class Payable_DsFilter extends Payable_Ds {
 
 	public void setAmountInitial_To(BigDecimal amountInitial_To) {
 		this.amountInitial_To = amountInitial_To;
-	}
-
-	public BigDecimal getAmountPayed_From() {
-		return this.amountPayed_From;
-	}
-
-	public BigDecimal getAmountPayed_To() {
-		return this.amountPayed_To;
-	}
-
-	public void setAmountPayed_From(BigDecimal amountPayed_From) {
-		this.amountPayed_From = amountPayed_From;
-	}
-
-	public void setAmountPayed_To(BigDecimal amountPayed_To) {
-		this.amountPayed_To = amountPayed_To;
 	}
 
 	public BigDecimal getAmountDue_From() {

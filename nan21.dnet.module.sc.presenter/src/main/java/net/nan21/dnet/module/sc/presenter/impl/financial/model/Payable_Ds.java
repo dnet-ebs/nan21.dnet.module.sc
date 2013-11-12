@@ -17,12 +17,12 @@ public class Payable_Ds extends AbstractAuditableDs<AmountOwed> {
 
 	public static final String f_dueDate = "dueDate";
 	public static final String f_dueInDays = "dueInDays";
-	public static final String f_amount = "amount";
+	public static final String f_amountInitial = "amountInitial";
 	public static final String f_amountPayed = "amountPayed";
-	public static final String f_amountRemained = "amountRemained";
+	public static final String f_amountDue = "amountDue";
 	public static final String f_companyId = "companyId";
 	public static final String f_company = "company";
-	public static final String f_bpAccountId = "bpAccountId";
+	public static final String f_vendorAccountId = "vendorAccountId";
 	public static final String f_vendorId = "vendorId";
 	public static final String f_vendor = "vendor";
 	public static final String f_vendorName = "vendorName";
@@ -39,13 +39,13 @@ public class Payable_Ds extends AbstractAuditableDs<AmountOwed> {
 	private Integer dueInDays;
 
 	@DsField
-	private BigDecimal amount;
+	private BigDecimal amountInitial;
 
 	@DsField
 	private BigDecimal amountPayed;
 
 	@DsField
-	private BigDecimal amountRemained;
+	private BigDecimal amountDue;
 
 	@DsField(join = "left", path = "bpAccount.company.id")
 	private String companyId;
@@ -54,7 +54,7 @@ public class Payable_Ds extends AbstractAuditableDs<AmountOwed> {
 	private String company;
 
 	@DsField(join = "left", path = "bpAccount.id")
-	private String bpAccountId;
+	private String vendorAccountId;
 
 	@DsField(join = "left", path = "bpAccount.bpartner.id")
 	private String vendorId;
@@ -104,12 +104,12 @@ public class Payable_Ds extends AbstractAuditableDs<AmountOwed> {
 		this.dueInDays = dueInDays;
 	}
 
-	public BigDecimal getAmount() {
-		return this.amount;
+	public BigDecimal getAmountInitial() {
+		return this.amountInitial;
 	}
 
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+	public void setAmountInitial(BigDecimal amountInitial) {
+		this.amountInitial = amountInitial;
 	}
 
 	public BigDecimal getAmountPayed() {
@@ -120,12 +120,12 @@ public class Payable_Ds extends AbstractAuditableDs<AmountOwed> {
 		this.amountPayed = amountPayed;
 	}
 
-	public BigDecimal getAmountRemained() {
-		return this.amountRemained;
+	public BigDecimal getAmountDue() {
+		return this.amountDue;
 	}
 
-	public void setAmountRemained(BigDecimal amountRemained) {
-		this.amountRemained = amountRemained;
+	public void setAmountDue(BigDecimal amountDue) {
+		this.amountDue = amountDue;
 	}
 
 	public String getCompanyId() {
@@ -144,12 +144,12 @@ public class Payable_Ds extends AbstractAuditableDs<AmountOwed> {
 		this.company = company;
 	}
 
-	public String getBpAccountId() {
-		return this.bpAccountId;
+	public String getVendorAccountId() {
+		return this.vendorAccountId;
 	}
 
-	public void setBpAccountId(String bpAccountId) {
-		this.bpAccountId = bpAccountId;
+	public void setVendorAccountId(String vendorAccountId) {
+		this.vendorAccountId = vendorAccountId;
 	}
 
 	public String getVendorId() {

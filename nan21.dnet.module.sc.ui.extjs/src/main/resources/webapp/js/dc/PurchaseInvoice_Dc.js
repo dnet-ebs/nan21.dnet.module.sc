@@ -23,7 +23,6 @@ Ext.define(Dnet.ns.sc + "PurchaseInvoice_Dc$Filter" , {
 		this._getBuilder_()
 		
 		/* =========== controls =========== */
-		.addTextField({ name:"sourceDocNo", dataIndex:"sourceDocNo"})
 		.addLov({name:"docType", dataIndex:"docType", xtype:"md_DocTypes_Lov", caseRestriction:"uppercase",
 			retFieldMapping: [{lovField:"id", dsField: "docTypeId"} ],
 			filterFieldMapping: [{lovField:"category", value: "purchase-invoice"} ]})
@@ -36,6 +35,7 @@ Ext.define(Dnet.ns.sc + "PurchaseInvoice_Dc$Filter" , {
 		.addLov({name:"docNo", dataIndex:"docNo", xtype:"sc_PurchaseInvoices_Lov",
 			retFieldMapping: [{lovField:"id", dsField: "id"} ],
 			filterFieldMapping: [{lovField:"companyId", dsField: "companyId"} ]})
+		.addTextField({ name:"sourceDocNo", dataIndex:"sourceDocNo"})
 		.addLov({name:"filterPeriod", paramIndex:"filterPeriod", xtype:"md_FiscalPeriods_Lov",
 			retFieldMapping: [{lovField:"startDate", dsField: "docDate_From"} ,{lovField:"endDate", dsField: "docDate_To"} ]})
 		.addLov({name:"filterProduct", paramIndex:"filterProductAccount", xtype:"md_ProductAccounts_Lov", caseRestriction:"uppercase",
@@ -45,7 +45,7 @@ Ext.define(Dnet.ns.sc + "PurchaseInvoice_Dc$Filter" , {
 		.addBooleanField({ name:"posted", dataIndex:"posted"})
 		.addDateField({name:"docDate_From", dataIndex:"docDate_From", emptyText:"From" })
 		.addDateField({name:"docDate_To", dataIndex:"docDate_To", emptyText:"To" })
-		.addFieldContainer({name: "docDate", fieldLabel:"Doc Date"})
+		.addFieldContainer({name: "docDate"})
 			.addChildrenTo("docDate",["docDate_From", "docDate_To"])
 		
 		/* =========== containers =========== */
@@ -95,6 +95,10 @@ Ext.define(Dnet.ns.sc + "PurchaseInvoice_Dc$List" , {
 		.addNumberColumn({ name:"amount", dataIndex:"amount", decimals:6})
 		.addTextColumn({ name:"currency", dataIndex:"currency", width:60})
 		.addTextColumn({ name:"currencyId", dataIndex:"currencyId", hidden:true, width:100})
+		.addTextColumn({ name:"paymentMethod", dataIndex:"paymentMethod", hidden:true, width:120})
+		.addTextColumn({ name:"paymentMethodId", dataIndex:"paymentMethodId", hidden:true, width:100})
+		.addTextColumn({ name:"paymentTerm", dataIndex:"paymentTerm", hidden:true, width:120})
+		.addTextColumn({ name:"paymentTermId", dataIndex:"paymentTermId", hidden:true, width:100})
 		.addNumberColumn({ name:"netAmountLoc", dataIndex:"netAmountLoc", hidden:true, decimals:6})
 		.addNumberColumn({ name:"taxAmountLoc", dataIndex:"taxAmountLoc", hidden:true, decimals:6})
 		.addNumberColumn({ name:"amountLoc", dataIndex:"amountLoc", hidden:true, decimals:6})
@@ -195,7 +199,14 @@ Ext.define(Dnet.ns.sc + "PurchaseInvoice_Dc$Edit" , {
 		.addDateField({name:"docDate", dataIndex:"docDate", noEdit:true })
 		.addTextField({ name:"bpartner", dataIndex:"bpartner", noEdit:true , caseRestriction:"uppercase"})
 		.addTextField({ name:"company", dataIndex:"company", noEdit:true , caseRestriction:"uppercase"})
+		.addTextField({ name:"sourceDocNo", dataIndex:"sourceDocNo", allowBlank:false})
 		.addTextArea({ name:"notes", dataIndex:"notes", height:80})
+		.addLov({name:"paymentMethod", dataIndex:"paymentMethod", xtype:"md_DocTypes_Lov", caseRestriction:"uppercase",
+			retFieldMapping: [{lovField:"id", dsField: "paymentMethodId"} ],
+			filterFieldMapping: [{lovField:"active", value: "true"}, {lovField:"category", value: "payment"} ]})
+		.addLov({name:"paymentTerm", dataIndex:"paymentTerm", xtype:"md_PaymentTerms_Lov",
+			retFieldMapping: [{lovField:"id", dsField: "paymentTermId"} ],
+			filterFieldMapping: [{lovField:"active", value: "true"} ]})
 		.addTextField({ name:"currency", dataIndex:"currency", noEdit:true , fieldCls:"important-field", caseRestriction:"uppercase"})
 		.addNumberField({name:"netAmount", dataIndex:"netAmount", noEdit:true , decimals:6})
 		.addNumberField({name:"taxAmount", dataIndex:"taxAmount", noEdit:true , decimals:6})
@@ -210,7 +221,7 @@ Ext.define(Dnet.ns.sc + "PurchaseInvoice_Dc$Edit" , {
 		.addPanel({ name:"col2", width:200, layout:"form"})
 		.addPanel({ name:"col3", width:250, layout:"form"})
 		.addPanel({ name:"col4", width:170, layout:"form"})
-		.addPanel({ name:"col5", width:250, layout:"form", defaults:{labelAlign:"top"}});
+		.addPanel({ name:"col5", title:"Payment", width:300, layout:"form", xtype:"fieldset", border:true, collapsible:true});
 	},
 
 	/**
@@ -220,10 +231,10 @@ Ext.define(Dnet.ns.sc + "PurchaseInvoice_Dc$Edit" , {
 		this._getBuilder_()
 		.addChildrenTo("main", ["col1", "col2", "col3", "col4", "col5"])
 		.addChildrenTo("col1", ["docType", "company", "bpartner"])
-		.addChildrenTo("col2", ["docDate", "docNo", "currency"])
+		.addChildrenTo("col2", ["docDate", "docNo", "currency", "sourceDocNo"])
 		.addChildrenTo("col3", ["netAmount", "taxAmount", "amount"])
 		.addChildrenTo("col4", ["confirmed", "posted"])
-		.addChildrenTo("col5", ["notes"]);
+		.addChildrenTo("col5", ["paymentTerm", "paymentMethod"]);
 	},
 	/* ==================== Business functions ==================== */
 	

@@ -21,21 +21,25 @@ Ext.define(Dnet.ns.sc + "PaymentOut_Ds", {
 		{name:"confirmed", type:"boolean"},
 		{name:"posted", type:"boolean"},
 		{name:"generated", type:"boolean"},
+		{name:"usage", type:"string"},
+		{name:"direction", type:"string"},
 		{name:"docTypeId", type:"string"},
 		{name:"docType", type:"string"},
 		{name:"currencyId", type:"string"},
 		{name:"currency", type:"string"},
 		{name:"companyId", type:"string"},
 		{name:"company", type:"string"},
-		{name:"bpAccountId", type:"string"},
-		{name:"bpartnerId", type:"string"},
-		{name:"bpartner", type:"string"},
-		{name:"bpartnerName", type:"string"},
+		{name:"vendorAccountId", type:"string"},
+		{name:"vendorId", type:"string"},
+		{name:"vendor", type:"string"},
+		{name:"vendorName", type:"string"},
 		{name:"amount", type:"float", useNull:true},
 		{name:"amountLoc", type:"float", useNull:true},
 		{name:"amountRef", type:"float", useNull:true},
 		{name:"xrateLoc", type:"float", useNull:true},
 		{name:"xrateRef", type:"float", useNull:true},
+		{name:"finAccountId", type:"string"},
+		{name:"finAccount", type:"string"},
 		{name:"id", type:"string"},
 		{name:"clientId", type:"string"},
 		{name:"createdAt", type:"date", dateFormat:Dnet.MODEL_DATE_FORMAT},
@@ -58,7 +62,17 @@ Dnet.createFilterModelFromRecordModel({
 	},
 	fields: [
 		{name:"docDate_From",type:"date", dateFormat:Dnet.MODEL_DATE_FORMAT},
-		{name:"docDate_To",type:"date", dateFormat:Dnet.MODEL_DATE_FORMAT}
+		{name:"docDate_To",type:"date", dateFormat:Dnet.MODEL_DATE_FORMAT},
+		{name:"amount_From",type:"float", useNull:true},
+		{name:"amount_To",type:"float", useNull:true}
 	],
 	recordModelFqn: Dnet.ns.sc + "PaymentOut_Ds"
+});
+
+Ext.define(Dnet.ns.sc + "PaymentOut_DsParam", {
+	extend: 'Ext.data.Model',
+	
+	fields: [
+		{name:"filterPeriod", type:"string", forFilter:true}
+	]
 });
