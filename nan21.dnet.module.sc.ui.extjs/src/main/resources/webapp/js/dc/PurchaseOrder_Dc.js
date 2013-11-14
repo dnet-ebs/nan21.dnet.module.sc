@@ -7,7 +7,18 @@ Ext.define(Dnet.ns.sc + "PurchaseOrder_Dc" , {
 	extend: "dnet.core.dc.AbstractDc",
 	filterModel: Dnet.ns.sc + "PurchaseOrder_DsFilter",
 	paramModel: Dnet.ns.sc + "PurchaseOrder_DsParam",
-	recordModel: Dnet.ns.sc + "PurchaseOrder_Ds"
+	recordModel: Dnet.ns.sc + "PurchaseOrder_Ds",
+			
+			/* ================ Business functions ================ */
+	
+	afterDoCopy: function() {
+		
+		this.record.set("docNo", "");
+		this.record.set("netAmount", 0);
+		this.record.set("taxAmount", 0);
+		this.record.set("amount", 0);
+	}
+
 });
 
 /* ================= FILTER FORM: Filter ================= */			

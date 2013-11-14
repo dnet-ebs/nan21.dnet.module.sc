@@ -7,7 +7,18 @@ Ext.define(Dnet.ns.sc + "PurchaseInvoice_Dc" , {
 	extend: "dnet.core.dc.AbstractDc",
 	filterModel: Dnet.ns.sc + "PurchaseInvoice_DsFilter",
 	paramModel: Dnet.ns.sc + "PurchaseInvoice_DsParam",
-	recordModel: Dnet.ns.sc + "PurchaseInvoice_Ds"
+	recordModel: Dnet.ns.sc + "PurchaseInvoice_Ds",
+			
+			/* ================ Business functions ================ */
+	
+	afterDoCopy: function() {
+		
+		this.record.set("docNo", "");
+		this.record.set("netAmount", 0);
+		this.record.set("taxAmount", 0);
+		this.record.set("amount", 0);
+	}
+
 });
 
 /* ================= FILTER FORM: Filter ================= */			
@@ -196,7 +207,7 @@ Ext.define(Dnet.ns.sc + "PurchaseInvoice_Dc$Edit" , {
 		/* =========== controls =========== */
 		.addTextField({ name:"docType", dataIndex:"docType", noEdit:true , caseRestriction:"uppercase"})
 		.addTextField({ name:"docNo", dataIndex:"docNo", noEdit:true })
-		.addDateField({name:"docDate", dataIndex:"docDate", noEdit:true })
+		.addDateField({name:"docDate", dataIndex:"docDate"})
 		.addTextField({ name:"bpartner", dataIndex:"bpartner", noEdit:true , caseRestriction:"uppercase"})
 		.addTextField({ name:"company", dataIndex:"company", noEdit:true , caseRestriction:"uppercase"})
 		.addTextField({ name:"sourceDocNo", dataIndex:"sourceDocNo", allowBlank:false})

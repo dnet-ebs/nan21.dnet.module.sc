@@ -25,7 +25,7 @@ Ext.define(Dnet.ns.sc + "PaymentOut_Dc$Filter" , {
 		/* =========== controls =========== */
 		.addLov({name:"docType", dataIndex:"docType", xtype:"md_DocTypes_Lov", caseRestriction:"uppercase",
 			retFieldMapping: [{lovField:"id", dsField: "docTypeId"} ],
-			filterFieldMapping: [{lovField:"category", value: "payment-out"} ]})
+			filterFieldMapping: [{lovField:"category", value: "payment"} ]})
 		.addLov({name:"company", dataIndex:"company", allowBlank:false, xtype:"md_OrgsLegalEntity_Lov", caseRestriction:"uppercase",
 			retFieldMapping: [{lovField:"id", dsField: "companyId"} ]})
 		.addLov({name:"vendor", dataIndex:"vendor", xtype:"md_VendorAccounts_Lov", caseRestriction:"uppercase",
@@ -36,6 +36,7 @@ Ext.define(Dnet.ns.sc + "PaymentOut_Dc$Filter" , {
 		.addLov({name:"finAccount", dataIndex:"finAccount", xtype:"md_FinancialAccounts_Lov", caseRestriction:"uppercase",
 			retFieldMapping: [{lovField:"id", dsField: "finAccountId"} ],
 			filterFieldMapping: [{lovField:"companyId", dsField: "companyId"} ]})
+		.addCombo({ xtype:"combo", name:"usage", dataIndex:"usage", store:[ "amounts", "invoice", "items"]})
 		.addLov({name:"docNo", dataIndex:"docNo", xtype:"sc_PaymentsOut_Lov",
 			retFieldMapping: [{lovField:"id", dsField: "id"} ],
 			filterFieldMapping: [{lovField:"companyId", dsField: "companyId"} ]})
@@ -68,7 +69,7 @@ Ext.define(Dnet.ns.sc + "PaymentOut_Dc$Filter" , {
 	_linkElements_: function() {
 		this._getBuilder_()
 		.addChildrenTo("main", ["col1", "col2", "col3", "col4"])
-		.addChildrenTo("col1", ["company", "finAccount", "vendor"])
+		.addChildrenTo("col1", ["company", "finAccount", "vendor", "usage"])
 		.addChildrenTo("col2", ["docType", "docNo", "sourceDocNo", "currency"])
 		.addChildrenTo("col3", ["filterPeriod", "docDate", "amount"])
 		.addChildrenTo("col4", ["confirmed", "posted"]);
@@ -102,6 +103,7 @@ Ext.define(Dnet.ns.sc + "PaymentOut_Dc$List" , {
 		.addTextColumn({ name:"currencyId", dataIndex:"currencyId", hidden:true, width:100})
 		.addNumberColumn({ name:"amountLoc", dataIndex:"amountLoc", hidden:true, decimals:6})
 		.addNumberColumn({ name:"amountRef", dataIndex:"amountRef", hidden:true, decimals:6})
+		.addTextColumn({ name:"usage", dataIndex:"usage", hidden:true, width:60})
 		.addBooleanColumn({ name:"confirmed", dataIndex:"confirmed"})
 		.addBooleanColumn({ name:"posted", dataIndex:"posted"})
 		.addBooleanColumn({ name:"generated", dataIndex:"generated", hidden:true})
@@ -124,7 +126,7 @@ Ext.define(Dnet.ns.sc + "PaymentOut_Dc$Create" , {
 		/* =========== controls =========== */
 		.addLov({name:"docType", dataIndex:"docType", allowBlank:false, xtype:"md_DocTypes_Lov", caseRestriction:"uppercase",
 			retFieldMapping: [{lovField:"id", dsField: "docTypeId"} ],
-			filterFieldMapping: [{lovField:"category", value: "payment-out"} ]})
+			filterFieldMapping: [{lovField:"category", value: "payment"} ]})
 		.addLov({name:"company", dataIndex:"company", noUpdate:true, allowBlank:false, xtype:"md_OrgsLegalEntity_Lov", caseRestriction:"uppercase",
 			retFieldMapping: [{lovField:"id", dsField: "companyId"} ]})
 		.addLov({name:"vendor", dataIndex:"vendor", noUpdate:true, allowBlank:false, xtype:"md_VendorAccounts_Lov", caseRestriction:"uppercase",
@@ -174,7 +176,7 @@ Ext.define(Dnet.ns.sc + "PaymentOut_Dc$Edit" , {
 		.addNumberField({name:"amount", dataIndex:"amount", allowBlank:false, fieldCls:"important-field", decimals:6})
 		.addLov({name:"finAccount", dataIndex:"finAccount", xtype:"md_FinancialAccounts_Lov", caseRestriction:"uppercase",
 			retFieldMapping: [{lovField:"id", dsField: "finAccountId"} ],
-			filterFieldMapping: [{lovField:"companyId", dsField: "companyId"} ]})
+			filterFieldMapping: [{lovField:"companyId", dsField: "companyId"}, {lovField:"currencyId", dsField: "currencyId"} ]})
 		.addTextArea({ name:"notes", dataIndex:"notes", height:70})
 		.addBooleanField({ name:"confirmed", dataIndex:"confirmed", noEdit:true })
 		.addBooleanField({ name:"posted", dataIndex:"posted", noEdit:true })

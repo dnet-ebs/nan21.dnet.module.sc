@@ -41,18 +41,19 @@ Ext.define(Dnet.ns.sc + "PaymentOutLine_Dc$CtxList" , {
 	 */
 	_defineColumns_: function() {
 		this._getBuilder_()	
-		.addLov({name:"product", dataIndex:"product", xtype:"gridcolumn", width:120, 
+		.addTextColumn({name:"productId", dataIndex:"productId", hidden:true, width:100, noEdit: true})
+		.addLov({name:"product", dataIndex:"product", xtype:"gridcolumn", width:150, 
 			editor:{xtype:"md_ProductAccounts_Lov", selectOnFocus:true, allowBlank:false, caseRestriction:"uppercase",
 				retFieldMapping: [{lovField:"id", dsField: "productAccountId"} ,{lovField:"productId", dsField: "productId"} ,{lovField:"productName", dsField: "productName"} ,{lovField:"uom", dsField: "uom"} ,{lovField:"uomId", dsField: "uomId"} ],
-				filterFieldMapping: [{lovField:"companyId", dsField: "companyId"}, {lovField:"sale", value: "true"}, {lovField:"active", value: "true"} ]}})
-		.addTextColumn({name:"productName", dataIndex:"productName", width:200})
+				filterFieldMapping: [{lovField:"companyId", dsField: "companyId"}, {lovField:"purchase", value: "true"}, {lovField:"active", value: "true"} ]}})
+		.addTextColumn({name:"productName", dataIndex:"productName", width:200, noEdit: true})
 		.addTextColumn({name:"productId", dataIndex:"productId", hidden:true, width:100, noEdit: true})
 		.addNumberColumn({name:"quantity", dataIndex:"quantity", align:"right", decimals:6 })
 		.addTextColumn({name:"uom", dataIndex:"uom", width:120, caseRestriction:"uppercase", noEdit: true})
 		.addTextColumn({name:"uomId", dataIndex:"uomId", hidden:true, width:100, noEdit: true})
 		.addNumberColumn({name:"unitPrice", dataIndex:"unitPrice", align:"right", decimals:6 })
 		.addNumberColumn({name:"amount", dataIndex:"amount", align:"right", decimals:6 })
-		.addTextColumn({name:"paymentId", dataIndex:"paymentId", hidden:true, width:100})
+		.addTextColumn({name:"paymentId", dataIndex:"paymentId", hidden:true, width:100, noEdit: true})
 		.addDefaults();
 	}
 });

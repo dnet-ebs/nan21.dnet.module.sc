@@ -47,6 +47,7 @@ Ext.define(Dnet.ns.sc + "PurchaseInvoiceLine_Dc$CtxList" , {
 		.addNumberColumn({ name:"quantity", dataIndex:"quantity", decimals:6})
 		.addTextColumn({ name:"uom", dataIndex:"uom", width:120})
 		.addTextColumn({ name:"uomId", dataIndex:"uomId", hidden:true, width:100})
+		.addTextColumn({ name:"entryMode", dataIndex:"entryMode", hidden:true, width:100})
 		.addNumberColumn({ name:"unitPrice", dataIndex:"unitPrice", decimals:6})
 		.addNumberColumn({ name:"netAmount", dataIndex:"netAmount", decimals:6})
 		.addNumberColumn({ name:"taxAmount", dataIndex:"taxAmount", decimals:6})
@@ -88,6 +89,9 @@ Ext.define(Dnet.ns.sc + "PurchaseInvoiceLine_Dc$EditForm" , {
 		.addLov({name:"tax", dataIndex:"tax", allowBlank:false, xtype:"md_TaxesApplicable_Lov",
 			retFieldMapping: [{lovField:"id", dsField: "taxId"} ]})
 		.addTextArea({ name:"notes", dataIndex:"notes", height:60})
+		.addCombo({ xtype:"combo", name:"entryMode", dataIndex:"entryMode", allowBlank:false, store:[ "price", "amount"],listeners:{
+			change:{scope:this, fn:this._onEntryModeChange_}
+		}})
 		.addNumberField({name:"netAmount", dataIndex:"netAmount", noEdit:true , decimals:6})
 		.addNumberField({name:"taxAmount", dataIndex:"taxAmount", noEdit:true , decimals:6})
 		.addNumberField({name:"amount", dataIndex:"amount", noEdit:true , fieldCls:"important-field", decimals:6})
@@ -111,7 +115,7 @@ Ext.define(Dnet.ns.sc + "PurchaseInvoiceLine_Dc$EditForm" , {
 		.addChildrenTo("main", ["col1", "col4"])
 		.addChildrenTo("col1", ["row1", "row2"])
 		.addChildrenTo("col4", ["notes"])
-		.addChildrenTo("row1", ["productAccountId", "product", "productName"])
+		.addChildrenTo("row1", ["productAccountId", "product", "productName", "entryMode"])
 		.addChildrenTo("row2", ["col2", "col3"])
 		.addChildrenTo("col2", ["uom", "quantity", "unitPrice", "tax"])
 		.addChildrenTo("col3", ["netAmount", "taxAmount", "amount"]);
@@ -136,14 +140,51 @@ Ext.define(Dnet.ns.sc + "PurchaseInvoiceLine_Dc$EditForm" , {
 	},
 	
 	calcNetAmount: function() {
-		
+		return;
 		var r = this._controller_.record;
 		if (r) {
 			r.beginEdit();
 			r.set("netAmount", r.get("unitPrice") * r.get("quantity"));
-			r.set("taxAmount", "0");
-			r.set("amount", "0");
+			r.set("taxAmount", 0);
+			r.set("amount", 0);
 			r.endEdit();
 		} 
+	},
+	
+	_onEntryModeChange_: function() {
+		
+		var r = this._getController_().getRecord(), mode=r.data.entryMode;
+		this._doEnableEntryFields_(mode);
+		r.beginEdit();
+		r.set("unitPrice", 0);		
+		r.set("netAmount", 0);
+		r.set("taxAmount", 0);
+		r.set("amount", 0);
+		r.endEdit();
+	},
+	
+	_doEnableEntryFields_: function(mode) {
+		
+		if (mode == "price") {
+			this._getElement_("unitPrice")._enable_();
+			this._getElement_("netAmount")._disable_();
+			this._getElement_("taxAmount")._disable_();
+			this._getElement_("amount")._disable_();
+			return;
+		}  
+		if (mode == "amount") {
+			this._getElement_("unitPrice")._disable_();
+			this._getElement_("netAmount")._enable_();
+			this._getElement_("taxAmount")._enable_();
+			this._getElement_("amount")._enable_();
+			return;
+		}
+		 
+	},
+	
+	_afterBind_: function(record) {
+		if (record) {
+			this._doEnableEntryFields_(record.data.entryMode);
+		}
 	}
 });
