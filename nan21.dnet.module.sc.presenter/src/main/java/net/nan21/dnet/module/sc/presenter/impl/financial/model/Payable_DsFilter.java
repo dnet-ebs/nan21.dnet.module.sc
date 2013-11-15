@@ -30,6 +30,10 @@ public class Payable_DsFilter extends Payable_Ds {
 
 	private BigDecimal amountDue_To;
 
+	private Date invoiceDate_From;
+
+	private Date invoiceDate_To;
+
 	public Date getDueDate_From() {
 		return this.dueDate_From;
 	}
@@ -92,5 +96,21 @@ public class Payable_DsFilter extends Payable_Ds {
 
 	public void setAmountDue_To(BigDecimal amountDue_To) {
 		this.amountDue_To = amountDue_To;
+	}
+
+	public Date getInvoiceDate_From() {
+		return this.invoiceDate_From;
+	}
+
+	public Date getInvoiceDate_To() {
+		return this.invoiceDate_To;
+	}
+
+	public void setInvoiceDate_From(Date invoiceDate_From) {
+		this.invoiceDate_From = invoiceDate_From;
+	}
+
+	public void setInvoiceDate_To(Date invoiceDate_To) {
+		this.invoiceDate_To = invoiceDate_To;
 	}
 }

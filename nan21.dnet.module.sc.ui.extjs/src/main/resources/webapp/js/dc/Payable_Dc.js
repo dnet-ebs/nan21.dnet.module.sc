@@ -6,6 +6,7 @@
 Ext.define(Dnet.ns.sc + "Payable_Dc" , {
 	extend: "dnet.core.dc.AbstractDc",
 	filterModel: Dnet.ns.sc + "Payable_DsFilter",
+	paramModel: Dnet.ns.sc + "Payable_DsParam",
 	recordModel: Dnet.ns.sc + "Payable_Ds"
 });
 
@@ -29,6 +30,12 @@ Ext.define(Dnet.ns.sc + "Payable_Dc$Filter" , {
 			filterFieldMapping: [{lovField:"companyId", dsField: "companyId"} ]})
 		.addLov({name:"currency", dataIndex:"currency", xtype:"bd_Currencies_Lov", caseRestriction:"uppercase",
 			retFieldMapping: [{lovField:"id", dsField: "currencyId"} ]})
+		.addLov({name:"invoiceNo", dataIndex:"invoiceNo", xtype:"sc_PurchaseInvoices_Lov",
+			retFieldMapping: [{lovField:"id", dsField: "invoiceId"} ,{lovField:"companyId", dsField: "companyId"} ]})
+		.addLov({name:"duePeriod", paramIndex:"duePeriod", xtype:"md_FiscalPeriods_Lov",
+			retFieldMapping: [{lovField:"startDate", dsField: "dueDate_From"} ,{lovField:"endDate", dsField: "dueDate_To"} ]})
+		.addLov({name:"docPeriod", paramIndex:"docPeriod", xtype:"md_FiscalPeriods_Lov",
+			retFieldMapping: [{lovField:"startDate", dsField: "invoiceDate_From"} ,{lovField:"endDate", dsField: "invoiceDate_To"} ]})
 		.addNumberField({name:"amountInitial_From", dataIndex:"amountInitial_From", emptyText:"From" })
 		.addNumberField({name:"amountInitial_To", dataIndex:"amountInitial_To", emptyText:"To" })
 		.addFieldContainer({name: "amountInitial"})
@@ -45,13 +52,17 @@ Ext.define(Dnet.ns.sc + "Payable_Dc$Filter" , {
 		.addDateField({name:"dueDate_To", dataIndex:"dueDate_To", emptyText:"To" })
 		.addFieldContainer({name: "dueDate"})
 			.addChildrenTo("dueDate",["dueDate_From", "dueDate_To"])
+		.addDateField({name:"invoiceDate_From", dataIndex:"invoiceDate_From", emptyText:"From" })
+		.addDateField({name:"invoiceDate_To", dataIndex:"invoiceDate_To", emptyText:"To" })
+		.addFieldContainer({name: "invoiceDate"})
+			.addChildrenTo("invoiceDate",["invoiceDate_From", "invoiceDate_To"])
 		
 		/* =========== containers =========== */
 		.addPanel({ name:"main", autoScroll:true, layout: {type:"hbox", align:'top', pack:'start', defaultMargins: {right:5, left:5}},
 		autoScroll:true, padding:"0 30 5 0"})
 		.addPanel({ name:"col1", width:250, layout:"form"})
-		.addPanel({ name:"col2", width:330, layout:"form", defaults:{labelAlign:"right", labelWidth:130}})
-		.addPanel({ name:"col3", width:310, layout:"form"});
+		.addPanel({ name:"col2", width:310, layout:"form"})
+		.addPanel({ name:"col3", width:330, layout:"form", defaults:{labelAlign:"right", labelWidth:130}});
 	},
 
 	/**
@@ -60,9 +71,9 @@ Ext.define(Dnet.ns.sc + "Payable_Dc$Filter" , {
 	_linkElements_: function() {
 		this._getBuilder_()
 		.addChildrenTo("main", ["col1", "col2", "col3"])
-		.addChildrenTo("col1", ["company", "vendor", "currency"])
-		.addChildrenTo("col2", ["amountInitial", "amountPayed", "amountDue"])
-		.addChildrenTo("col3", ["dueDate"]);
+		.addChildrenTo("col1", ["company", "vendor", "currency", "invoiceNo"])
+		.addChildrenTo("col2", ["duePeriod", "dueDate", "docPeriod", "invoiceDate"])
+		.addChildrenTo("col3", ["amountInitial", "amountPayed", "amountDue"]);
 	}
 });
 

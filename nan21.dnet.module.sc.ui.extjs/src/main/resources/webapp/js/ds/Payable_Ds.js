@@ -52,7 +52,18 @@ Dnet.createFilterModelFromRecordModel({
 		{name:"amountPayed_From",type:"float", useNull:true},
 		{name:"amountPayed_To",type:"float", useNull:true},
 		{name:"amountDue_From",type:"float", useNull:true},
-		{name:"amountDue_To",type:"float", useNull:true}
+		{name:"amountDue_To",type:"float", useNull:true},
+		{name:"invoiceDate_From",type:"date", dateFormat:Dnet.MODEL_DATE_FORMAT},
+		{name:"invoiceDate_To",type:"date", dateFormat:Dnet.MODEL_DATE_FORMAT}
 	],
 	recordModelFqn: Dnet.ns.sc + "Payable_Ds"
+});
+
+Ext.define(Dnet.ns.sc + "Payable_DsParam", {
+	extend: 'Ext.data.Model',
+	
+	fields: [
+		{name:"docPeriod", type:"string", forFilter:true},
+		{name:"duePeriod", type:"string", forFilter:true}
+	]
 });

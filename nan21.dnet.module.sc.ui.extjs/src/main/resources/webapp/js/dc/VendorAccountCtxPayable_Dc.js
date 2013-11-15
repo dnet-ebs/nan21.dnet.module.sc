@@ -6,6 +6,7 @@
 Ext.define(Dnet.ns.sc + "VendorAccountCtxPayable_Dc" , {
 	extend: "dnet.core.dc.AbstractDc",
 	filterModel: Dnet.ns.sc + "Payable_DsFilter",
+	paramModel: Dnet.ns.sc + "Payable_DsParam",
 	recordModel: Dnet.ns.sc + "Payable_Ds"
 });
 

@@ -72,6 +72,7 @@
 		<property name="modelClass" value="net.nan21.dnet.module.sc.presenter.impl.financial.model.Payable_Ds"/>
 		<property name="filterClass" value="net.nan21.dnet.module.sc.presenter.impl.financial.model.Payable_DsFilter"/>
 		<property name="entityClass" value="net.nan21.dnet.module.tx.domain.impl.financial.AmountOwed"/>
+		<property name="paramClass" value="net.nan21.dnet.module.sc.presenter.impl.financial.model.Payable_DsParam"/>
 		<property name="readOnly" value="true" />
 	</bean>
 	
