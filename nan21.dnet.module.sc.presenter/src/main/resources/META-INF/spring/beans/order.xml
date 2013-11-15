@@ -102,4 +102,15 @@
 		<property name="entityClass" value="net.nan21.dnet.module.tx.domain.impl.purchase.PurchaseOrderLineTax"/>
 		<property name="readOnly" value="true" />
 	</bean>
+	
+	<!-- ==================== PurchaseOrderLineOverview ==================== -->
+		
+	<bean id="PurchaseOrderLineOverview_Ds" scope="singleton" lazy-init="true"
+		class="net.nan21.dnet.core.presenter.service.ds.DefaultEntityDsService">
+		<property name="modelClass" value="net.nan21.dnet.module.sc.presenter.impl.order.model.PurchaseOrderLineOverview_Ds"/>
+		<property name="filterClass" value="net.nan21.dnet.module.sc.presenter.impl.order.model.PurchaseOrderLineOverview_DsFilter"/>
+		<property name="entityClass" value="net.nan21.dnet.module.tx.domain.impl.purchase.PurchaseOrderLine"/>
+		<property name="paramClass" value="net.nan21.dnet.module.sc.presenter.impl.order.model.PurchaseOrderLineOverview_DsParam"/>
+		<property name="readOnly" value="true" />
+	</bean>
 </beans>
